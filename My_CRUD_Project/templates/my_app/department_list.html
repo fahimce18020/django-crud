@@ -1,0 +1,38 @@
+{% extends 'my_app/base.html' %}
+{% block body_block %}
+{{title}}
+<h4>Studnt Name : {{student_info.first_name}} {{student_info.last_name}}</h4>
+<h4>Phone : {{ student_info.phone }}</h4>
+<h4>Session : {{ student_info.session}}</h4>
+<h4>Blood Group : {{ student_info.blood_group}}</h4>
+<h4>Religion : {{ student_info.religion }}</h4>
+<h4>Nationality : {{ student_info.nationality }}</h4>
+<h4>Department Rating : {{ department_rating.num_stars__avg }}</h4>
+
+<h3>List of Department</h3>
+<a href="{% url 'my_app:edit_student' s_id=student_info.id %}" class="btn btn-primary">Edit</a>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Department Name</th>
+    <th>Establishing Date</th>
+    <th>Rating</th>
+  </tr>
+  {% for department_list in department_list %}
+  <tr>
+    <td><a href="{% url 'my_app:edit_department' department_id=department_list.id %}">{{ department_list.dept_name}}</a></td>
+    <td>{{ department_list.establishing_date|date:"M d,Y"}}</td>
+    <td>{{ department_list.num_stars}}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<br>
+<a href="{% url 'my_app:delete_student' student_id=student_info.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Delete Student?')">Delete</a>
+
+
+
+
+
+{% endblock %}
